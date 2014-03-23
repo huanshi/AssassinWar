@@ -47,8 +47,7 @@ define(function (require, exports, module) {
             "img/defaultPlayer-up0.png",
             "img/defaultPlayer-up1.png",
             "img/defaultPlayer-up2.png",
-            "img/defaultPlayer-up3.png",
-
+            "img/defaultPlayer-up3.png"
         ],
         function (imgs) {
             var imageArray = {
