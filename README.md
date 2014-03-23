@@ -5,8 +5,9 @@ It's a game.
 Develop Document
 -----------------------------
 ###About test:
-* To run test, you should open test.html.
-* To add one test, you should add one test file to **js\spec\** firstly. Secondly, you should modify **test.html**, and add the test file to the require section of **test.html** like this:
+* Use Jasmine to test.
+* To run tests, you should open **test.html**.
+* To add new test, you should add new test file to **js\spec\** firstly. Secondly, you should modify **test.html**, and add the test file to the require section of **test.html** like this:
 ```    
     <script>
             require([
