@@ -1,5 +1,5 @@
 AssassinWar
------------------------------
+=============================
 It's a game.
 
 Develop Document
@@ -19,3 +19,7 @@ To add one test, you should add one test file to js\spec\ firstly. Secondly, you
                 });
 </script>
 `
+
+Lisence
+-----------------------------
+MIT
