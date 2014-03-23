@@ -1,6 +1,7 @@
 /* global define */
 define(function (require, exports, module) {
-    var Projection = require("module/projection");
+    var Projection = require("module/projection"),
+        MoveHelper = require("module/moveHelper");
 
     // 走一步需要的帧数
     var ONE_STEP_FRAME_COUNT = 8;
@@ -84,15 +85,7 @@ define(function (require, exports, module) {
      * @return {x, y} 移动后的位置坐标
      */
     Player.prototype._walkOneStep = function () {
-        if (this._postion.x < this._targetPosition.x) {
-            this._postion.x = this._postion.x + 1;
-        } else if (this._postion.x > 　this._targetPosition.x) {
-            this._postion.x = this._postion.x - 1;
-        } else if (this._postion.y < this._targetPosition.y) {
-            this._postion.y = this._postion.y + 1;
-        } else if (this._postion.y > 　this._targetPosition.y) {
-            this._postion.y = this._postion.y - 1;
-        }
+        this._postion = MoveHelper.moveOneStep(this._postion, this._targetPosition).position;
         return this._postion;
     };
 
