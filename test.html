@@ -10,16 +10,17 @@
 
     <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/jasmine.js"></script>
     <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/jasmine-html.js"></script>
-    <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/boot.js"></script>
-    <script type="text/javascript" src="js/thirdpartylib/require.js" data-main="js/specRunner"></script>
+    <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/boot.js">
+    </script>
+    <script type="text/javascript" src="js/thirdpartylib/require.js" data-main="js/specRunner">
+    </script>
 
     <script>
         require([
-                    // Pull in all your modules containing unit tests here.
+                    // 要执行的测试文件，添加在这里.
                     "spec/personSpec",
                     "spec/projectionSpec"
                 ], function () {
-                    //jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
                     jasmine.getEnv().execute();
                 });
     </script>
