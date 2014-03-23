@@ -1,6 +1,6 @@
 /* global define */
-define( function (require, exports, module) {
-    var Projection = require("lib/projection");
+define(function (require, exports, module) {
+    var Projection = require("module/projection");
 
     function Person(canvas, imgArray, pos) {
         this._canvas = canvas;
@@ -13,8 +13,8 @@ define( function (require, exports, module) {
         this._frameCounter = 0;
     }
 
-    Person.prototype.isArrive = function() {
-        return (this._postion.x === this._targetPosition.x ) && (this._postion.y === this._targetPosition.y);
+    Person.prototype.isArrive = function () {
+        return (this._postion.x === this._targetPosition.x) && (this._postion.y === this._targetPosition.y);
     };
 
     Person.prototype.render = function () {
@@ -27,8 +27,7 @@ define( function (require, exports, module) {
 
         if (this.isArrive()) {
             context.drawImage(this._imgArray[0], screenPos.x - this._width, screenPos.y - this._height);
-        }
-        else if (((this._frameCounter) % 8) < 4) {
+        } else if (((this._frameCounter) % 8) < 4) {
             context.drawImage(this._imgArray[0], screenPos.x - this._width, screenPos.y - this._height);
         } else {
             context.drawImage(this._imgArray[1], screenPos.x - this._width, screenPos.y - this._height);
@@ -59,7 +58,7 @@ define( function (require, exports, module) {
         }
         return this._postion;
     };
-    
+
     return Person;
-    
-} );
+
+});

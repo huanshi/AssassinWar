@@ -1,6 +1,6 @@
 /* global define, describe, it, expect, require */
 
-define(["lib/projection"], function (Projection) {
+define(["module/projection"], function (Projection) {
 
     describe("projection.js 测试", function () {
 

@@ -1,5 +1,5 @@
 /* global define, describe, it, expect, require */
-define(["lib/person"], function (Person) {
+define(["module/person"], function (Person) {
 
     describe("person.js 测试", function () {
 
