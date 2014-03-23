@@ -13,10 +13,10 @@ requirejs.config({
 define(function (require, exports, module) {
 
     var ImageUtil = require("lib/ImageUtil"),
-        Person = require("module/person"),
+        Player = require("module/player"),
         Background = require("module/background"),
         Projection = require("module/projection"),
-        person = null,
+        player = null,
         background = null,
         canvas = document.getElementById("myCanvas"),
         imgs = [];
@@ -26,7 +26,7 @@ define(function (require, exports, module) {
      */
     function render() {
         background.render();
-        person.render();
+        player.render();
         requestAnimFrame(render);
     }
 
@@ -37,7 +37,7 @@ define(function (require, exports, module) {
 
     ImageUtil.loadImage("img/defaultPerson2.png", function (img) {
         imgs[1] = img;
-        person = new Person(canvas, imgs, {
+        player = new Player(canvas, imgs, {
             x: 1,
             y: 1
         });
@@ -52,7 +52,7 @@ define(function (require, exports, module) {
 
     // 添加画布点击事件
     canvas.addEventListener('click', function () {
-        person.moveTo(Projection.pixToPosition({
+        player.moveTo(Projection.pixToPosition({
             x: window.event.clientX,
             y: window.event.clientY
         }));
