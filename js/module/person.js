@@ -1,17 +1,17 @@
 /* global define */
 define(function (require, exports, module) {
     var Projection = require("module/projection");
+    var
 
-    function Person(canvas, imgArray, pos) {
-        this._canvas = canvas;
-        this._imgArray = imgArray;
-        this._postion = pos;
-        this._height = 50;
-        this._width = 30;
-        this._targetPosition = this._postion;
-        this._oldPosition = this._postion;
-        this._frameCounter = 0;
-    }
+        function Person(canvas, imgArray, pos) {
+            this._canvas = canvas;
+            this._imgArray = imgArray;
+            this._postion = pos;
+            this._height = 50;
+            this._width = 30;
+            this._targetPosition = this._postion;
+            this._frameCounter = 0;
+        }
 
     Person.prototype.isArrive = function () {
         return (this._postion.x === this._targetPosition.x) && (this._postion.y === this._targetPosition.y);
@@ -34,16 +34,8 @@ define(function (require, exports, module) {
         }
     };
 
-    Person.prototype.clearOld = function () {
-        var context = this._canvas.getContext("2d");
-        context.clearRect(this._oldPosition.x - this._width, this._oldPosition.y - this._height);
-    };
-
     Person.prototype.moveTo = function (pos) {
-        //    var position = pixToPosition(pos);
-        //    position = positionTopix(position);
         this._targetPosition = pos;
-        this._oldPosition = this._postion;
     };
 
     Person.prototype.walkOneStep = function () {
