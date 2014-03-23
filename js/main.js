@@ -31,20 +31,17 @@ define(function (require, exports, module) {
     }
 
     // 加载图像
-    ImageUtil.loadImage("img/defaultPerson.png", function (img) {
-        imgs[0] = img;
-    });
-
-    ImageUtil.loadImage("img/defaultPerson2.png", function (img) {
-        imgs[1] = img;
-        player = new Player(canvas, imgs, {
-            x: 1,
-            y: 1
+    ImageUtil.loadImages(
+        ["img/defaultPerson.png", "img/defaultPerson2.png"],
+        function (imgs) {
+            player = new Player(canvas, imgs, {
+                x: 1,
+                y: 1
+            });
         });
-    });
 
-    ImageUtil.loadImage("img/background.png", function (img) {
-        background = new Background(canvas, img);
+    ImageUtil.loadImages(["img/background.png"], function (imgs) {
+        background = new Background(canvas, imgs[0]);
 
         // 画图像
         render();

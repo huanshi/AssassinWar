@@ -1,27 +1,38 @@
-
 /* global define, requirejs, Image */
-define( function (require, exports, module) {
+define(function (require, exports, module) {
 
     /**
-     * 加载图片
-     * @param {string} url 图片链接
+     * 批量加载图片
+     * @param {string} urls 要加载的图片链接
      * @param {function} 回调函数
      */
-    function loadImage(url, callback) {
-        var img = new Image(); //创建一个Image对象，实现图片的预下载  
-        img.src = url;
+    function loadImages(urls, callback) {
+        var imgs = [],
+            loadedCount = 0;
 
-        if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数  
-            callback.call(this, img);
-            return; // 直接返回，不用再处理onload事件  
+        var doComplete = function () {
+            loadedCount++;
+            if (loadedCount === urls.length) {
+                callback.call(this, imgs);
+            }
         }
 
-        img.onload = function () { //图片下载完毕时异步调用callback函数。  
-            callback.call(this, img); //将回调函数的this替换为Image对象  
+        var onLoadImage = function () {
+            doComplete();
         };
+
+        for (var urlIndex = 0, urlCount = urls.length; urlIndex < urlCount; urlIndex++) {
+            imgs[urlIndex] = new Image();
+            imgs[urlIndex].src = urls[urlIndex];
+            if (imgs[urlIndex].complete) {
+                doComplete();
+            } else {
+                imgs[urlIndex].onload = onLoadImage;
+            }
+        }
     }
-    
+
     // export function
-    exports.loadImage = loadImage;
-    
-} );
+    exports.loadImages = loadImages;
+
+});
