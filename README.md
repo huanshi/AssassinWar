@@ -5,8 +5,8 @@ It's a game.
 Develop Document
 -----------------------------
 ###About test:
-1. To run test, you should open test.html.
-2. To add one test, you should add one test file to **js\spec\** firstly. Secondly, you should modify **test.html**, and add the test file to the require section of **test.html** like this:
+* To run test, you should open test.html.
+* To add one test, you should add one test file to **js\spec\** firstly. Secondly, you should modify **test.html**, and add the test file to the require section of **test.html** like this:
 ```    
     <script>
             require([
