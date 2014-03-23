@@ -1,9 +1,8 @@
-AssassinWar
-=============================
+#AssassinWar
 It's a game.
 
-Develop Document
------------------------------
+##Develop Document
+
 ###About test:
 * Use **Jasmine** to test, see [this link](http://jasmine.github.io/).
 * To run tests, you should open **test.html**.
@@ -20,6 +19,6 @@ Develop Document
     </script>
 ```
 
-Lisence
------------------------------
+##Lisence
+
 MIT
