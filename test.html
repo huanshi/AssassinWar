@@ -1,26 +1,31 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Assassin War 测试页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Assassin War 测试页</title>
 
-  <link rel="shortcut icon" type="image/png" href="js/thirdpartylib/jasmine-2.0.0/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="js/thirdpartylib/jasmine-2.0.0/jasmine.css">
+    <link rel="shortcut icon" type="image/png" href="js/thirdpartylib/jasmine-2.0.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="js/thirdpartylib/jasmine-2.0.0/jasmine.css">
 
-  <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/jasmine.js"></script>
-  <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/jasmine-html.js"></script>
-  <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/boot.js"></script>
+    <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/jasmine.js"></script>
+    <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="js/thirdpartylib/jasmine-2.0.0/boot.js"></script>
+    <script type="text/javascript" src="js/thirdpartylib/require.js" data-main="js/specRunner"></script>
 
-  <!-- include source files here... -->
-  <script type="text/javascript" src="js/lib/projection.js"></script>
-    <script type="text/javascript" src="js/lib/person.js"></script>
-
-  <!-- include spec files here... -->
-  <script type="text/javascript" src="js/spec/projectionSpec.js"></script>
-    <script type="text/javascript" src="js/spec/personSpec.js"></script>
-
+    <script>
+        require([
+                    // Pull in all your modules containing unit tests here.
+                    "spec/personSpec",
+                    "spec/projectionSpec"
+                ], function () {
+                    //jasmine.getEnv().addReporter(new jasmine.HtmlReporter());
+                    jasmine.getEnv().execute();
+                });
+    </script>
 </head>
 
 <body>
 </body>
+
 </html>

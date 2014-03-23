@@ -1,53 +1,16 @@
 <html>
 
-<head></head>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Assassin War</title>
+</head>
 
 <body>
-    <canvas id="myCanvas" width="800" height="600" onclick="onMouseClick();"></canvas>
-    <script type="text/javascript" src="js/lib/commonLib.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/lib/Person.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/lib/background.js" charset="utf-8"></script>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <script type="text/javascript" src="js/ThirdPartyLib/jquery-1.10.2.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="js/lib/util.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/lib/projection.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/lib/mouseController.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        var person = null;
-        var background = null;
-        var c=document.getElementById("myCanvas");
-        var cxt=c.getContext("2d");
-        var imgs = [];
-        
-        loadImage("img/defaultPerson.png", function(img) {
-            imgs[0] = img;
-        });
-        
-        loadImage("img/defaultPerson2.png", function(img) {
-            imgs[1] = img;
-            person = new Person(c, imgs, {x:1,y:1});
-        });
-        
-         loadImage("img/background.png", function(img) {
-            background = new Background(c, img);
-             
-            // 画图像
-            draw();
-        });
-        
-        function onMouseClick()
-        {
-            person.moveTo(pixToPosition({
-                x: window.event.clientX,
-                y: window.event.clientY
-            }));
-        };
-        
-        function draw() {
-            background.render();
-            person.render();
-            requestAnimFrame( draw );
-        }
-        
-    </script>
+    <script type="text/javascript" src="js/ThirdPartyLib/require.js" data-main="js/main" charset="utf-8"></script>
 </body>
 
 </html>
