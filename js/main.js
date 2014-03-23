@@ -31,10 +31,33 @@ define(function (require, exports, module) {
     }
 
     // 加载图像
-    ImageUtil.loadImages(
-        ["img/defaultPerson.png", "img/defaultPerson2.png"],
+    ImageUtil.loadImages([
+            "img/defaultPlayer-down0.png",
+            "img/defaultPlayer-down1.png",
+            "img/defaultPlayer-down2.png",
+            "img/defaultPlayer-down3.png",
+            "img/defaultPlayer-left0.png",
+            "img/defaultPlayer-left1.png",
+            "img/defaultPlayer-left2.png",
+            "img/defaultPlayer-left3.png",
+            "img/defaultPlayer-right0.png",
+            "img/defaultPlayer-right1.png",
+            "img/defaultPlayer-right2.png",
+            "img/defaultPlayer-right3.png",
+            "img/defaultPlayer-up0.png",
+            "img/defaultPlayer-up1.png",
+            "img/defaultPlayer-up2.png",
+            "img/defaultPlayer-up3.png",
+
+        ],
         function (imgs) {
-            player = new Player(canvas, imgs, {
+            var imageArray = {
+                down: imgs.slice(0, 4),
+                left: imgs.slice(4, 8),
+                right: imgs.slice(8, 12),
+                up: imgs.slice(12, 16)
+            };
+            player = new Player(canvas, imageArray, {
                 x: 1,
                 y: 1
             });

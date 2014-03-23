@@ -1,9 +1,9 @@
 /* global define, describe, it, expect, require */
 define(["module/player"], function (Player) {
 
-    describe("player.js 测试", function () {
+    describe("测试 player.js ", function () {
 
-        it("walk forward", function () {
+        it("左上向右下走", function () {
             var player = new Player(null, null, {
                 x: 0,
                 y: 0
@@ -26,7 +26,7 @@ define(["module/player"], function (Player) {
             expect(pos.y).toBe(1);
         });
 
-        it("walk back", function () {
+        it("右下向左上走", function () {
 
             var player = new Player(null, null, {
                 x: 1,
@@ -111,6 +111,188 @@ define(["module/player"], function (Player) {
             pos = player._walkOneStep();
             expect(pos.x).toBe(1);
             expect(pos.y).toBe(11);
+        });
+
+        it("测试左上向右下走，每一帧的图像是否正确", function () {
+            var imageArray = {
+                left: [1, 2, 3, 4],
+                right: [5, 6, 7, 8],
+                up: [9, 10, 11, 12],
+                down: [13, 14, 15, 16]
+            },
+                renderImage = 0;
+
+            var player = new Player(null, imageArray, {
+                x: 0,
+                y: 0
+            });
+
+            player.moveTo({
+                x: 1,
+                y: 1
+            });
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(5);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(6);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(6);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(7);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(7);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(8);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(8);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(5);
+
+            // 向下走
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(13);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(14);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(14);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(15);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(15);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(16);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(16);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(13);
+
+            // 还是向下
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(13);
+
+        });
+
+        it("测试右下向左上走，每一帧的图像是否正确", function () {
+            var imageArray = {
+                left: [1, 2, 3, 4],
+                right: [5, 6, 7, 8],
+                up: [9, 10, 11, 12],
+                down: [13, 14, 15, 16]
+            },
+                renderImage = 0;
+
+            var player = new Player(null, imageArray, {
+                x: 1,
+                y: 1
+            });
+
+            player.moveTo({
+                x: 0,
+                y: 0
+            });
+
+            // 转向左边走
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(1);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(2);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(2);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(3);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(3);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(4);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(4);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(1);
+
+            // 向上走
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(9);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(10);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(10);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(11);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(11);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(12);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(12);
+
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(9);
+
+            //一直停留
+            player._doWalk();
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(9);
         });
 
     });

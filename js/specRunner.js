@@ -1,5 +1,6 @@
+/* global require */
 require.config({
-    urlArgs: 'cb=' + Math.random(),
+    //    urlArgs: 'cb=' + Math.random(),
     baseUrl: 'js/',
     paths: {
         jquery: 'thirdpartylib/jquery-1.10.2.min',

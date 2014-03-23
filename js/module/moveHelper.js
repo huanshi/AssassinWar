@@ -3,11 +3,14 @@ define(function (require, exports, module) {
     var EnumDirection = require("module/enumDirection");
 
     /**
-     * 移动一步
+     * 获取下一步的位置
      */
-    function moveOneStep(curPos, targetPos) {
-        var nextPos = curPos,
-            direction = EnumDirection.RIGHT;
+    function getNextOneStepPos(curPos, targetPos) {
+        var nextPos = {
+            x: curPos.x,
+            y: curPos.y
+        },
+            direction = EnumDirection.NO;
 
         if (curPos.x < targetPos.x) {
             direction = EnumDirection.RIGHT;
@@ -26,10 +29,10 @@ define(function (require, exports, module) {
         return {
             direction: direction,
             position: nextPos
-        }
+        };
     }
 
     // export;
-    exports.moveOneStep = moveOneStep;
+    exports.getNextOneStepPos = getNextOneStepPos;
 
 });

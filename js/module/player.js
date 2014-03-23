@@ -1,7 +1,8 @@
 /* global define */
 define(function (require, exports, module) {
     var Projection = require("module/projection"),
-        MoveHelper = require("module/moveHelper");
+        MoveHelper = require("module/moveHelper"),
+        EnumDirection = require("module/enumDirection");
 
     // 走一步需要的帧数
     var ONE_STEP_FRAME_COUNT = 8;
@@ -15,10 +16,11 @@ define(function (require, exports, module) {
     function Player(canvas, imgArray, pos) {
         this._canvas = canvas;
         this._imgArray = imgArray;
-        this._postion = pos;
+        this._position = pos;
+        this._direction = EnumDirection.DOWN;
         this._height = 50;
         this._width = 30;
-        this._targetPosition = this._postion;
+        this._targetPosition = this._position;
         this._frameCounter = 0;
     }
 
@@ -43,7 +45,7 @@ define(function (require, exports, module) {
      * @return {boolean} true 表示需要移动
      */
     Player.prototype._needMove = function () {
-        return (this._postion.x !== this._targetPosition.x) || (this._postion.y !== this._targetPosition.y);
+        return (this._position.x !== this._targetPosition.x) || (this._position.y !== this._targetPosition.y);
     };
 
     /**
@@ -61,6 +63,12 @@ define(function (require, exports, module) {
         this._frameCounter++;
         if (this._shouldWalk()) {
             this._walkOneStep();
+        } else {
+            // 考虑转向的问题
+            var nextStepDirection = MoveHelper.getNextOneStepPos(this._position, this._targetPosition).direction;
+            if (this._direction !== nextStepDirection && nextStepDirection !== EnumDirection.NO) {
+                this._direction = nextStepDirection;
+            }
         }
     };
 
@@ -68,15 +76,50 @@ define(function (require, exports, module) {
      * 绘制自己
      */
     Player.prototype._renderMe = function () {
-        var screenPos = Projection.positionToPix(this._postion);
-        var context = this._canvas.getContext("2d");
+        var screenPos = Projection.positionToPix(this._position),
+            context = this._canvas.getContext("2d"),
+            imgPlace = {
+                x: screenPos.x - this._width,
+                y: screenPos.y - this._height
+            };
 
+        context.drawImage(this._getRenderImage(), imgPlace.x, imgPlace.y);
+    };
+
+    /**
+     * 获取当前要render的图像
+     * @return {Image} 需要绘制的图像
+     */
+    Player.prototype._getRenderImage = function () {
         if (!this._needMove()) {
-            context.drawImage(this._imgArray[0], screenPos.x - this._width, screenPos.y - this._height);
-        } else if (((this._frameCounter) % ONE_STEP_FRAME_COUNT) < ONE_STEP_FRAME_COUNT / 2) {
-            context.drawImage(this._imgArray[0], screenPos.x - this._width, screenPos.y - this._height);
+            return this._getRenderImageByIndex(0);
+        }
+
+        var remainframeCount = this._frameCounter % ONE_STEP_FRAME_COUNT;
+        if (remainframeCount < 2) {
+            return this._getRenderImageByIndex(0);
+        } else if (remainframeCount < 4) {
+            return this._getRenderImageByIndex(1);
+        } else if (remainframeCount < 6) {
+            return this._getRenderImageByIndex(2);
         } else {
-            context.drawImage(this._imgArray[1], screenPos.x - this._width, screenPos.y - this._height);
+            return this._getRenderImageByIndex(3);
+        }
+    };
+
+    /**
+     * 使用index获取当前渲染使用的图像
+     * @return {Image} 图像
+     */
+    Player.prototype._getRenderImageByIndex = function (index) {
+        if (this._direction === EnumDirection.LEFT) {
+            return this._imgArray.left[index];
+        } else if (this._direction === EnumDirection.RIGHT) {
+            return this._imgArray.right[index];
+        } else if (this._direction === EnumDirection.UP) {
+            return this._imgArray.up[index];
+        } else {
+            return this._imgArray.down[index];
         }
     };
 
@@ -85,8 +128,10 @@ define(function (require, exports, module) {
      * @return {x, y} 移动后的位置坐标
      */
     Player.prototype._walkOneStep = function () {
-        this._postion = MoveHelper.moveOneStep(this._postion, this._targetPosition).position;
-        return this._postion;
+        var nextStep = MoveHelper.getNextOneStepPos(this._position, this._targetPosition);
+        this._position = nextStep.position;
+        this._direction = nextStep.direction;
+        return this._position;
     };
 
     // export

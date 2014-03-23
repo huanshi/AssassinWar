@@ -5,6 +5,7 @@ define(function (require, exports, module) {
         LEFT: 'left',
         RIGHT: 'right',
         UP: 'up',
-        DOWN: 'down'
-    }
+        DOWN: 'down',
+        NO: 'no'
+    };
 });

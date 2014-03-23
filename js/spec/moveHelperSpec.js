@@ -12,17 +12,17 @@ define(["module/moveHelper", "module/enumDirection"], function (MoveHelper, Enum
                     y: 2
                 };
 
-            var result = MoveHelper.moveOneStep(curPos, targetPos);
+            var result = MoveHelper.getNextOneStepPos(curPos, targetPos);
             expect(result.direction).toBe(EnumDirection.RIGHT);
             expect(result.position.x).toBe(2);
             expect(result.position.y).toBe(1);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.direction).toBe(EnumDirection.DOWN);
             expect(result.position.x).toBe(2);
             expect(result.position.y).toBe(2);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.position.x).toBe(2);
             expect(result.position.y).toBe(2);
 
@@ -38,17 +38,17 @@ define(["module/moveHelper", "module/enumDirection"], function (MoveHelper, Enum
                     y: 1
                 };
 
-            var result = MoveHelper.moveOneStep(curPos, targetPos);
+            var result = MoveHelper.getNextOneStepPos(curPos, targetPos);
             expect(result.direction).toBe(EnumDirection.RIGHT);
             expect(result.position.x).toBe(3);
             expect(result.position.y).toBe(2);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.direction).toBe(EnumDirection.UP);
             expect(result.position.x).toBe(3);
             expect(result.position.y).toBe(1);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.position.x).toBe(3);
             expect(result.position.y).toBe(1);
 
@@ -64,17 +64,17 @@ define(["module/moveHelper", "module/enumDirection"], function (MoveHelper, Enum
                     y: 2
                 };
 
-            var result = MoveHelper.moveOneStep(curPos, targetPos);
+            var result = MoveHelper.getNextOneStepPos(curPos, targetPos);
             expect(result.direction).toBe(EnumDirection.LEFT);
             expect(result.position.x).toBe(2);
             expect(result.position.y).toBe(1);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.direction).toBe(EnumDirection.DOWN);
             expect(result.position.x).toBe(2);
             expect(result.position.y).toBe(2);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.position.x).toBe(2);
             expect(result.position.y).toBe(2);
 
@@ -90,27 +90,27 @@ define(["module/moveHelper", "module/enumDirection"], function (MoveHelper, Enum
                     y: 8
                 };
 
-            var result = MoveHelper.moveOneStep(curPos, targetPos);
+            var result = MoveHelper.getNextOneStepPos(curPos, targetPos);
             expect(result.direction).toBe(EnumDirection.LEFT);
             expect(result.position.x).toBe(9);
             expect(result.position.y).toBe(10);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.direction).toBe(EnumDirection.LEFT);
             expect(result.position.x).toBe(8);
             expect(result.position.y).toBe(10);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.direction).toBe(EnumDirection.UP);
             expect(result.position.x).toBe(8);
             expect(result.position.y).toBe(9);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.direction).toBe(EnumDirection.UP);
             expect(result.position.x).toBe(8);
             expect(result.position.y).toBe(8);
 
-            result = MoveHelper.moveOneStep(result.position, targetPos);
+            result = MoveHelper.getNextOneStepPos(result.position, targetPos);
             expect(result.position.x).toBe(8);
             expect(result.position.y).toBe(8);
 

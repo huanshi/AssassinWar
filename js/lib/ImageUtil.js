@@ -15,7 +15,7 @@ define(function (require, exports, module) {
             if (loadedCount === urls.length) {
                 callback.call(this, imgs);
             }
-        }
+        };
 
         var onLoadImage = function () {
             doComplete();
