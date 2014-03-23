@@ -95,12 +95,12 @@ define(function (require, exports, module) {
             return this._getRenderImageByIndex(0);
         }
 
-        var remainframeCount = this._frameCounter % ONE_STEP_FRAME_COUNT;
-        if (remainframeCount < 2) {
+        var remainframeCount = this._frameCounter % (ONE_STEP_FRAME_COUNT * 4);
+        if (remainframeCount < 2 * 4) {
             return this._getRenderImageByIndex(0);
-        } else if (remainframeCount < 4) {
+        } else if (remainframeCount < 4 * 4) {
             return this._getRenderImageByIndex(1);
-        } else if (remainframeCount < 6) {
+        } else if (remainframeCount < 6 * 4) {
             return this._getRenderImageByIndex(2);
         } else {
             return this._getRenderImageByIndex(3);
@@ -128,9 +128,11 @@ define(function (require, exports, module) {
      * @return {x, y} 移动后的位置坐标
      */
     Player.prototype._walkOneStep = function () {
-        var nextStep = MoveHelper.getNextOneStepPos(this._position, this._targetPosition);
-        this._position = nextStep.position;
-        this._direction = nextStep.direction;
+        if (this._needMove()) {
+            var nextStep = MoveHelper.getNextOneStepPos(this._position, this._targetPosition);
+            this._position = nextStep.position;
+            this._direction = nextStep.direction;
+        }
         return this._position;
     };
 

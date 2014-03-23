@@ -120,7 +120,8 @@ define(["module/player"], function (Player) {
                 up: [9, 10, 11, 12],
                 down: [13, 14, 15, 16]
             },
-                renderImage = 0;
+                renderImage = 0,
+                frameIndex = 0;
 
             var player = new Player(null, imageArray, {
                 x: 0,
@@ -128,44 +129,43 @@ define(["module/player"], function (Player) {
             });
 
             player.moveTo({
-                x: 1,
-                y: 1
+                x: 1 * 4,
+                y: 1 * 4
             });
 
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 7; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(5);
 
+            // 第8帧是下一个动作
             player._doWalk();
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(6);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(6);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(7);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(7);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(8);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(8);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(5);
 
             // 向下走
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 7; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(13);
 
@@ -173,32 +173,34 @@ define(["module/player"], function (Player) {
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(14);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(14);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(15);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(15);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(16);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(16);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(13);
 
             // 还是向下
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(13);
+
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(13);
 
@@ -211,11 +213,12 @@ define(["module/player"], function (Player) {
                 up: [9, 10, 11, 12],
                 down: [13, 14, 15, 16]
             },
-                renderImage = 0;
+                renderImage = 0,
+                frameIndex = 0;
 
             var player = new Player(null, imageArray, {
-                x: 1,
-                y: 1
+                x: 1 * 4,
+                y: 1 * 4
             });
 
             player.moveTo({
@@ -224,7 +227,9 @@ define(["module/player"], function (Player) {
             });
 
             // 转向左边走
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 7; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(1);
 
@@ -232,32 +237,28 @@ define(["module/player"], function (Player) {
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(2);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(2);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(3);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(3);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(4);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(4);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(1);
 
             // 向上走
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 7; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(9);
 
@@ -265,32 +266,34 @@ define(["module/player"], function (Player) {
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(10);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(10);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(11);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(11);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(12);
 
-            player._doWalk();
-            renderImage = player._getRenderImage();
-            expect(renderImage).toBe(12);
-
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(9);
 
             //一直停留
-            player._doWalk();
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
+            renderImage = player._getRenderImage();
+            expect(renderImage).toBe(9);
+
+            for (frameIndex = 0; frameIndex < 8; frameIndex++) {
+                player._doWalk();
+            }
             renderImage = player._getRenderImage();
             expect(renderImage).toBe(9);
         });
