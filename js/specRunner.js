@@ -4,6 +4,7 @@ require.config({
     baseUrl: 'js/',
     paths: {
         jquery: 'thirdpartylib/jquery-1.10.2.min',
+        prototype: 'thirdpartylib/prototype',
         jasmine: 'thirdpartylib/jasmine-2.0.0/jasmine',
         'jasmine-html': 'thirdpartylib/jasmine-2.0.0/jasmine-html',
         spec: 'spec/'

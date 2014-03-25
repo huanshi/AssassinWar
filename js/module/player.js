@@ -1,27 +1,32 @@
-/* global define */
+/* global define, Class*/
 define(function (require, exports, module) {
     var Projection = require("module/projection"),
         MoveHelper = require("module/moveHelper"),
         EnumDirection = require("module/enumDirection");
+     require('prototype');
 
     // 走一步需要的帧数
     var ONE_STEP_FRAME_COUNT = 8;
-
-    /**
-     * 玩家，
-     * @param {Canvas} canvas 画布
-     * @param {Array} imgArray 该玩家的一组人物图片
-     * @param {x, y} pos 玩家位置
-     */
-    function Player(canvas, imgArray, pos) {
-        this._canvas = canvas;
-        this._imgArray = imgArray;
-        this._position = pos;
-        this._direction = EnumDirection.DOWN;
-        this._height = 50;
-        this._width = 30;
-        this._targetPosition = this._position;
-        this._frameCounter = 0;
+    
+    // 定义Player类
+    var Player = Class.create();
+    Player.prototype = {
+        /**
+         * 玩家，
+         * @param {Canvas} canvas 画布
+         * @param {Array} imgArray 该玩家的一组人物图片
+         * @param {x, y} pos 玩家位置
+         */
+        initialize: function(canvas, imgArray, pos) {
+            this._canvas = canvas;
+            this._imgArray = imgArray;
+            this._position = pos;
+            this._direction = EnumDirection.DOWN;
+            this._height = 50;
+            this._width = 30;
+            this._targetPosition = this._position;
+            this._frameCounter = 0;
+        } 
     }
 
     /**

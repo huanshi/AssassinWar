@@ -6,7 +6,8 @@ requirejs.config({
     baseUrl: 'js/',
 
     paths: {
-        text: "ThirdPartyLib/text"
+        text: "thirdpartylib/text",
+        prototype: 'thirdpartylib/prototype'
     }
 });
 
@@ -14,12 +15,13 @@ define(function (require, exports, module) {
 
     var ImageUtil = require("lib/ImageUtil"),
         Player = require("module/player"),
+        Npc = require("module/npc"),
         Background = require("module/background"),
         Projection = require("module/projection"),
-        player = null,
-        background = null,
         canvas = document.getElementById("myCanvas"),
-        imgs = [];
+        player = null,
+        npc = null,
+        background = null;
 
     /**
      * 绘制整个游戏
@@ -27,6 +29,7 @@ define(function (require, exports, module) {
     function render() {
         background.render();
         player.render();
+        npc.render();
         requestAnimFrame(render);
     }
 
@@ -60,6 +63,12 @@ define(function (require, exports, module) {
                 x: 1,
                 y: 1
             });
+            npc = new Npc(canvas, imageArray, {
+                x: 2,
+                y: 6
+            });
+            
+            npc.startAutoMove();
         });
 
     ImageUtil.loadImages(["img/background.png"], function (imgs) {
