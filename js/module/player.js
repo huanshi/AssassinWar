@@ -27,7 +27,7 @@ define(function (require, exports, module) {
             this._targetPosition = this._position;
             this._frameCounter = 0;
         } 
-    }
+    };
 
     /**
      * 移动到某个位置

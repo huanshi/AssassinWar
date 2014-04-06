@@ -1,4 +1,4 @@
-/* global define, requirejs, document, requestAnimFrame, window */
+/* global define, jQuery, alert, requirejs, document, requestAnimFrame, window */
 
 // 先配置require的环境
 requirejs.config({
@@ -14,11 +14,12 @@ requirejs.config({
 define(function (require, exports, module) {
 
     var ImageUtil = require("lib/ImageUtil"),
+        CommonUtil = require("lib/commonUtil"),
         Player = require("module/player"),
         Npc = require("module/npc"),
         Background = require("module/background"),
         Projection = require("module/projection"),
-        canvas = document.getElementById("myCanvas"),
+        canvas = document.getElementById("gameCanvas"),
         player = null,
         npc = null,
         background = null;
@@ -27,9 +28,15 @@ define(function (require, exports, module) {
      * 绘制整个游戏
      */
     function render() {
-        background.render();
-        player.render();
-        npc.render();
+        if (CommonUtil.isDefined(background)) {
+            background.render();
+        }
+        if (CommonUtil.isDefined(player)){
+            player.render();
+        }
+        if (CommonUtil.isDefined(npc)){
+            npc.render();
+        }
         requestAnimFrame(render);
     }
 
@@ -86,4 +93,41 @@ define(function (require, exports, module) {
         }));
     });
 
+    jQuery('#joinBtn').on('click', function () {
+        var userName = jQuery("body").find("input[name='userName']").val();
+        jQuery.ajax({
+            type: 'POST',
+            url: 'joinGame?userName=' + userName + '&gameId=g1',
+            success: function(data){
+                alert("join ok!");
+            },
+            error : function(){
+                alert("error!");
+            }
+        });
+    });
+    
+    jQuery('#getPlayersBtn').on('click', function() {
+        jQuery.ajax({
+            type: 'GET',
+            url: 'getPlayers',
+            success: function(data){
+                if (CommonUtil.isDefined(data)) {
+                    var players = JSON.parse(data);
+                    if (CommonUtil.isDefined(players)) {
+                       var content = "玩家：<br>";
+                        for (var index = 0; index < players.length; index++ ) {
+                            content += players[index].Name + "<br>";
+                        }
+                        jQuery(".controlPanel .players span").html(content); 
+                    }
+                }
+                alert("获取玩家完成");
+            },
+            error : function(){
+                alert("error!");
+            }
+        });
+    } );
+    
 });
