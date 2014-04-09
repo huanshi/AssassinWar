@@ -1,6 +1,6 @@
 /* global define, Class*/
 define(function (require, exports, module) {
-    var CommonUtil = require("lib/CommonUtil"),
+    var CommonUtil = require("lib/commonUtil"),
         Projection = require("module/projection"),
         MoveHelper = require("module/moveHelper"),
         EnumDirection = require("module/enumDirection");
