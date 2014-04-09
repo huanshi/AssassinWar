@@ -15,12 +15,12 @@ define(function (require, exports, module) {
 
     var ImageUtil = require("lib/ImageUtil"),
         CommonUtil = require("lib/commonUtil"),
+        GlobalVar = require("lib/globalVar"),
         Player = require("module/player"),
         Npc = require("module/npc"),
         Background = require("module/background"),
         Projection = require("module/projection"),
         canvas = document.getElementById("gameCanvas"),
-        player = null,
         npc = null,
         wsconn = null,
         socket = null,
@@ -34,8 +34,8 @@ define(function (require, exports, module) {
         if (CommonUtil.isDefined(background)) {
             background.render();
         }
-        if (CommonUtil.isDefined(player)){
-            player.render();
+        if (CommonUtil.isDefined(GlobalVar.me)) {
+            GlobalVar.me.render();
         }
         if (CommonUtil.isDefined(npc)){
             npc.render();
@@ -60,19 +60,18 @@ define(function (require, exports, module) {
             "img/defaultPlayer-up0.png",
             "img/defaultPlayer-up1.png",
             "img/defaultPlayer-up2.png",
-            "img/defaultPlayer-up3.png"
+            "img/defaultPlayer-up3.png",
+            "img/at.png"
         ],
         function (imgs) {
             var imageArray = {
                 down: imgs.slice(0, 4),
                 left: imgs.slice(4, 8),
                 right: imgs.slice(8, 12),
-                up: imgs.slice(12, 16)
+                up: imgs.slice(12, 16),
+                at: imgs[16]
             };
-            player = new Player(canvas, imageArray, {
-                x: 1,
-                y: 1
-            });
+            GlobalVar.playerSkins = imageArray;
             npc = new Npc(canvas, imageArray, {
                 x: 2,
                 y: 6
@@ -91,10 +90,12 @@ define(function (require, exports, module) {
     // 添加画布点击事件
     canvas.addEventListener('click', function (event) {
         CommonUtil.stopPropagation(event);
-        player.moveTo(Projection.pixToPosition({
-            x: window.event.clientX,
-            y: window.event.clientY
-        }));
+        if (CommonUtil.isDefined(GlobalVar.me)) {
+            GlobalVar.me.moveTo(Projection.pixToPosition({
+                x: window.event.clientX,
+                y: window.event.clientY
+            }));
+        }
     });
 
     jQuery('#joinBtn').on('click', function (event) {
@@ -111,6 +112,11 @@ define(function (require, exports, module) {
                         content += players[index].Name + "<br>";
                     }
                     jQuery(".controlPanel .players span").html(content);
+                    
+                    GlobalVar.me = new Player(canvas, GlobalVar.playerSkins, {
+                        x: 0,
+                        y: 0
+                    }, players[0].Name);
                 }
             },
             error : function(){

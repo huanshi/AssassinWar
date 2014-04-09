@@ -1,6 +1,7 @@
 /* global define, Class*/
 define(function (require, exports, module) {
-    var Projection = require("module/projection"),
+    var CommonUtil = require("lib/CommonUtil"),
+        Projection = require("module/projection"),
         MoveHelper = require("module/moveHelper"),
         EnumDirection = require("module/enumDirection");
      require('prototype');
@@ -17,7 +18,7 @@ define(function (require, exports, module) {
          * @param {Array} imgArray 该玩家的一组人物图片
          * @param {x, y} pos 玩家位置
          */
-        initialize: function(canvas, imgArray, pos) {
+        initialize: function(canvas, imgArray, pos, name) {
             this._canvas = canvas;
             this._imgArray = imgArray;
             this._position = pos;
@@ -26,6 +27,7 @@ define(function (require, exports, module) {
             this._width = 30;
             this._targetPosition = this._position;
             this._frameCounter = 0;
+            this._name = name;
         } 
     };
 
@@ -89,6 +91,10 @@ define(function (require, exports, module) {
             };
 
         context.drawImage(this._getRenderImage(), imgPlace.x, imgPlace.y);
+        if (CommonUtil.isDefined(this._name)) {
+            context.drawImage(this._imgArray.at, imgPlace.x + (this._width - 16) / 2, imgPlace.y - 26);
+        }
+        
     };
 
     /**
