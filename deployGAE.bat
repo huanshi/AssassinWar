@@ -1,10 +1,6 @@
-@echo on
-set oldGoPath=%GOPATH% 
-echo %oldGoPath%
-set GOPATH=%oldGoPath%;%cd%\server\
-echo %GOPATH%
-::set GOPATH=%oldGoPath%
+@echo off
 
+set GOPATH=%GOPATH%;%cd%\server\
 goapp deploy
 
 pause

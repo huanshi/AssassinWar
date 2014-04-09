@@ -10,7 +10,21 @@ define(function (require, exports, module) {
         return obj !== null && obj !== undefined && obj !== 'undefined';
     }
     
+    /**
+     * 阻止事件传递
+     * @param {MouseEvent} event
+     */
+    function stopPropagation(event) {
+        if (event) {
+            event.cancelBubble = true;
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+        }
+    }
+    
     // export
     exports.isDefined = isDefined;
+    exports.stopPropagation = stopPropagation;
     
 } );

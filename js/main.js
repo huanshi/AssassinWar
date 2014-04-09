@@ -1,4 +1,4 @@
-/* global define, jQuery, alert, requirejs, document, requestAnimFrame, window */
+/* global define, jQuery, alert, requirejs, document, requestAnimFrame, window, goog, console, setInterval */
 
 // 先配置require的环境
 requirejs.config({
@@ -22,6 +22,9 @@ define(function (require, exports, module) {
         canvas = document.getElementById("gameCanvas"),
         player = null,
         npc = null,
+        wsconn = null,
+        socket = null,
+        userName = null,
         background = null;
 
     /**
@@ -86,20 +89,29 @@ define(function (require, exports, module) {
     });
 
     // 添加画布点击事件
-    canvas.addEventListener('click', function () {
+    canvas.addEventListener('click', function (event) {
+        CommonUtil.stopPropagation(event);
         player.moveTo(Projection.pixToPosition({
             x: window.event.clientX,
             y: window.event.clientY
         }));
     });
 
-    jQuery('#joinBtn').on('click', function () {
-        var userName = jQuery("body").find("input[name='userName']").val();
+    jQuery('#joinBtn').on('click', function (event) {
+        CommonUtil.stopPropagation(event);
+        userName = jQuery("body").find("input[name='userName']").val();
         jQuery.ajax({
             type: 'POST',
-            url: 'joinGame?userName=' + userName + '&gameId=g1',
+            url: 'joinGame?userName=' + userName + '&gameId=1',
             success: function(data){
-                alert("join ok!");
+                if (CommonUtil.isDefined(data)) {
+                    var players = JSON.parse(data);
+                    var content = "玩家：<br>";
+                    for (var index = 0; index < players.length; index++ ) {
+                        content += players[index].Name + "<br>";
+                    }
+                    jQuery(".controlPanel .players span").html(content);
+                }
             },
             error : function(){
                 alert("error!");
@@ -107,10 +119,27 @@ define(function (require, exports, module) {
         });
     });
     
-    jQuery('#getPlayersBtn').on('click', function() {
+    jQuery('#sendMsg').on('click', function(event){
+        CommonUtil.stopPropagation(event);
+        var msg = jQuery("body").find("input[name='message']").val();
+        userName = jQuery("body").find("input[name='userName']").val();
+        console.log("======talk : " + msg);
+        jQuery.ajax({
+            type: 'POST',
+            url: 'talk2Others?userName=' + userName + '&gameId=1&message=' + msg,
+            success: function(data){
+            },
+            error : function(){
+                alert("talk2Others msg error!");
+            }
+        });
+    });
+    
+    jQuery('#getPlayersBtn').on('click', function(event) {
+        CommonUtil.stopPropagation(event);
         jQuery.ajax({
             type: 'GET',
-            url: 'getPlayers',
+            url: 'getPlayer',
             success: function(data){
                 if (CommonUtil.isDefined(data)) {
                     var players = JSON.parse(data);
@@ -129,5 +158,36 @@ define(function (require, exports, module) {
             }
         });
     } );
+    
+    // 采用轮训的方式更新最新的消息
+    setInterval(function(){
+        if (!CommonUtil.isDefined(userName)) {
+            return;
+        }
+        
+        jQuery.ajax({
+            type: 'POST',
+            url: 'getNewMsg?userName=' + userName + '&gameId=1',
+            success: function(data){
+                if (CommonUtil.isDefined(data) && data !== "noMsg") {
+                    console.log("==newMsg = " + data);
+                    var msgs = JSON.parse(data);
+                    for (var index = 0; index < msgs.length; index++) {
+                        if (msgs[index].Type === 'talk') {
+                            var sayContent = msgs[index].From + ' say: ' + msgs[index].Content;
+                            jQuery(".controlPanel .players span").append('<label>' + sayContent + '</label><br>');
+                        } else if (msgs[index].Type === 'joinGame') {
+                            jQuery(".controlPanel .players span").append('<label>' + msgs[index].From + '</label><br>');
+                        } else if (msgs[index].Type === 'quitGame') {
+                            jQuery(".controlPanel .players span").append('<label>' + msgs[index].From + ' 退出游戏！</label><br>');
+                        }
+                    }
+                }
+            },
+            error : function(){
+                alert("error!");
+            }
+        });
+    }, 2000);
     
 });
